@@ -138,6 +138,7 @@ internal class CCFFuelInvoiceClient : IFuelInvoiceClient
     {
         return new FuelInvoice()
         {
+            // TODO: supply all properties with values
             Id = ccfFuelInvoice.invoice,
         };
     }
