@@ -45,8 +45,6 @@ public class Fetcher
         this.fuelDataService = fuelDataService;
         this.logger = logger;
 
-        Console.WriteLine(config.Value.Date);
-
         this.date = config.Value.Date != null
             ? DateOnly.Parse(config.Value.Date)
             : DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
