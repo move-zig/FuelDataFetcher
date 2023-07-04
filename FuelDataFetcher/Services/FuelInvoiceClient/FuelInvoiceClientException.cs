@@ -24,7 +24,13 @@ namespace FuelDataFetcher.Services.FuelInvoiceClient;
 
 public class FuelInvoiceClientException : Exception
 {
-    public FuelInvoiceClientException(string message) : base(message)
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FuelInvoiceClientException"/> class.
+    /// </summary>
+    /// <param name="message">The message that describes the error.</param>
+    public FuelInvoiceClientException(string message)
+        : base(message)
     {
     }
 }
