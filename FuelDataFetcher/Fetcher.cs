@@ -55,7 +55,7 @@ public class Fetcher
     public async Task FetchAndStoreAsync()
     {
         this.logger.LogInformation("Fetching invoices for date {date}", this.date.ToString("yyyy-MM-dd"));
-        return;
+
         var fuelData = await this.fuelDataService.FetchByDateAsync(this.date);
 
         await this.repository.OpenAsync();
