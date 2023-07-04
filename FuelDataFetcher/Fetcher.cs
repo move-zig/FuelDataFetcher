@@ -24,21 +24,39 @@ namespace FuelDataFetcher;
 
 using Services.FuelInvoiceRepository;
 using Services.FuelInvoiceClient;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
-internal class Fetcher
+public class Fetcher
 {
     private readonly IFuelInvoiceRepository repository;
     private readonly IFuelInvoiceClient fuelDataService;
+    private readonly ILogger<Fetcher> logger;
 
-    public Fetcher(IFuelInvoiceRepository repository, IFuelInvoiceClient fuelDataService)
+    private readonly DateOnly date;
+
+    public Fetcher(
+        IOptions<FetcherOptions> config,
+        IFuelInvoiceRepository repository,
+        IFuelInvoiceClient fuelDataService,
+        ILogger<Fetcher> logger)
     {
         this.repository = repository;
         this.fuelDataService = fuelDataService;
+        this.logger = logger;
+
+        Console.WriteLine(config.Value.Date);
+
+        this.date = config.Value.Date != null
+            ? DateOnly.Parse(config.Value.Date)
+            : DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
     }
 
-    internal async Task RunAsync()
+    public async Task FetchAndStoreAsync()
     {
-        var fuelData = await this.fuelDataService.FetchByDateAsync(new DateOnly(2023, 6, 30));
+        this.logger.LogInformation("Fetching invoices for date {date}", this.date.ToString("yyyy-MM-dd"));
+        return;
+        var fuelData = await this.fuelDataService.FetchByDateAsync(this.date);
 
         await this.repository.OpenAsync();
 

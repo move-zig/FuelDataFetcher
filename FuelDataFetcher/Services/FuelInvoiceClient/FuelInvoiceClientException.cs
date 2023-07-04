@@ -22,7 +22,7 @@
 
 namespace FuelDataFetcher.Services.FuelInvoiceClient;
 
-internal class FuelInvoiceClientException : Exception
+public class FuelInvoiceClientException : Exception
 {
     public FuelInvoiceClientException(string message) : base(message)
     {

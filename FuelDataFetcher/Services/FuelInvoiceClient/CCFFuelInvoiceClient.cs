@@ -30,7 +30,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 
 /// <inheritdoc />
-internal class CCFFuelInvoiceClient : IFuelInvoiceClient
+public class CCFFuelInvoiceClient : IFuelInvoiceClient
 {
     /// <summary>
     /// Sent as part of the user-agent HTTP header.

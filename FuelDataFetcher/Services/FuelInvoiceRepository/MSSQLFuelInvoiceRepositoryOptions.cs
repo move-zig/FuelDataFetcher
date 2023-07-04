@@ -22,7 +22,7 @@
 
 namespace FuelDataFetcher.Services.FuelInvoiceRepository;
 
-internal class MSSQLFuelInvoiceRepositoryOptions
+public class MSSQLFuelInvoiceRepositoryOptions
 {
     public const string ConfigurationSectionName = "MSSQLFuelInvoiceRepository";
 

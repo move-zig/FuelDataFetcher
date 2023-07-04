@@ -22,7 +22,7 @@
 
 namespace FuelDataFetcher.Services.FuelInvoiceClient;
 
-internal class CCFFuelInvoiceClientOptions
+public class CCFFuelInvoiceClientOptions
 {
     /// <summary>
     /// The configuration section where the data is located.

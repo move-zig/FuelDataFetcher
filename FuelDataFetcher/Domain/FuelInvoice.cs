@@ -25,7 +25,7 @@ namespace FuelDataFetcher.Domain;
 /// <summary>
 /// A fuel invoice.
 /// </summary>
-internal class FuelInvoice
+public class FuelInvoice
 {
     required public string Id { get; set; }
 

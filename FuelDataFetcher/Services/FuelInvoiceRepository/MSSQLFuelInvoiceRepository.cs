@@ -29,7 +29,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 /// <inheritdoc/>
-internal class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
+public class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
 {
     private readonly SqlConnection connection;
 

@@ -38,7 +38,7 @@ internal class Program
         var host = builder.Build();
 
         var fetcher = host.Services.GetRequiredService<Fetcher>();
-        await fetcher.RunAsync();
+        await fetcher.FetchAndStoreAsync();
     }
 
     private static void ConfigureServices(IHostBuilder builder)
@@ -53,7 +53,15 @@ internal class Program
 
             services.AddTransient<IFuelInvoiceClient, CCFFuelInvoiceClient>();
 
+            services.AddOptions<MSSQLFuelInvoiceRepositoryOptions>()
+               .Bind(configuration.GetSection(MSSQLFuelInvoiceRepositoryOptions.ConfigurationSectionName))
+               .ValidateDataAnnotations();
+
             services.AddTransient<IFuelInvoiceRepository, MSSQLFuelInvoiceRepository>();
+
+            services.AddOptions<FetcherOptions>()
+               .Bind(configuration.GetSection(FetcherOptions.ConfigurationSectionName))
+               .ValidateDataAnnotations();
 
             services.AddScoped<Fetcher>();
         });

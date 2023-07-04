@@ -25,59 +25,59 @@ namespace FuelDataFetcher.Services.FuelInvoiceClient;
 internal record CCFFuelInvoice
 {
     /// <summary>Gets or sets the ticket number on the invoice</summary>
-    required public string ticket { get; set; }
+    required internal string ticket { get; set; }
 
     /// <summary>Gets or sets the invoice number.</summary>
-    required public string invoice { get; set; }
+    required internal string invoice { get; set; }
 
     /// <summary>Gets or sets the internal code of the location being delivered to.</summary>
-    required public string ship_to { get; set; }
+    required internal string ship_to { get; set; }
 
     /// <summary>Gets or sets the name of the location being delivered to.</summary>
-    required public string ship_to_desc { get; set; }
+    required internal string ship_to_desc { get; set; }
 
     /// <summary>Gets or sets the street address of the location being delivered to.</summary>
-    required public string ship_to_addr { get; set; }
+    required internal string ship_to_addr { get; set; }
 
     /// <summary>Gets or sets the date of the delivery.</summary>
-    required public DateOnly date { get; set; }
+    required internal DateOnly date { get; set; }
 
     /// <summary>Gets or sets the time of delivery represented as an int in 24-hour format.</summary>
-    required public int time { get; set; }
+    required internal int time { get; set; }
 
     /// <summary>Gets or sets the PO box number.</summary>
-    required public string po_num { get; set; }
+    required internal string po_num { get; set; }
 
     /// <summary>Gets or sets the short code for the fuel type or charge.</summary>
-    required public string product_num { get; set; }
+    required internal string product_num { get; set; }
 
     /// <summary>Gets or sets the long description of the fuel type or charge.</summary>
-    required public string product_desc { get; set; }
+    required internal string product_desc { get; set; }
 
     /// <summary>Gets or sets the internal ID for equipment fuel is being delivered to.</summary>
-    required public string unit_num { get; set; }
+    required internal string unit_num { get; set; }
 
     /// <summary>Gets or sets the barcode for equipment fuel is being delivered to.</summary>
-    required public string unit_barcode { get; set; }
+    required internal string unit_barcode { get; set; }
 
     /// <summary>Gets or sets the total amount of product.</summary>
-    required public float quantity { get; set; }
+    required internal float quantity { get; set; }
 
     /// <summary>Gets or sets the unit price without tax.</summary>
-    required public float unit_price_less_taxes { get; set; }
+    required internal float unit_price_less_taxes { get; set; }
 
     /// <summary>Gets or sets the federal tax.</summary>
-    required public float fet { get; set; }
+    required internal float fet { get; set; }
 
     /// <summary>Gets or sets the provincial tax.</summary>
-    required public float pft { get; set; }
+    required internal float pft { get; set; }
 
     /// <summary>Gets or sets the carbon tax.</summary>
-    required public float ctx { get; set; }
+    required internal float ctx { get; set; }
 
     /// <summary>Gets or sets the sales tax.</summary>
-    required public float hst { get; set; }
+    required internal float hst { get; set; }
 
     /// <summary>Gets or sets the unit price with tax.</summary>
-    required public float total_price { get; set; }
+    required internal float total_price { get; set; }
 }

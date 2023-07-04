@@ -27,12 +27,12 @@ using Domain;
 /// <summary>
 /// Fetches <see cref="FuelInvoice" />s.
 /// </summary>
-internal interface IFuelInvoiceClient : IDisposable
+public interface IFuelInvoiceClient : IDisposable
 {
     /// <summary>
     /// Fetches a list of fuel data for a specific date.
     /// </summary>
     /// <param name="date">The date to filter by.</param>
     /// <returns>The list of fuel data.</returns>
-    Task<List<FuelInvoice>> FetchByDateAsync(DateOnly date);
+    public Task<List<FuelInvoice>> FetchByDateAsync(DateOnly date);
 }

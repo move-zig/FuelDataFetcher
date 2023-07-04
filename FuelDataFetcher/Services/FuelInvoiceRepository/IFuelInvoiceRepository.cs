@@ -27,34 +27,34 @@ using Domain;
 /// <summary>
 /// Stores <see cref="FuelInvoice"/>s.
 /// </summary>
-internal interface IFuelInvoiceRepository : IDisposable
+public interface IFuelInvoiceRepository : IDisposable
 {
     /// <summary>
     /// Saves fuel data to the database.
     /// </summary>
     /// <param name="invoices">The invoices to save.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    Task SaveManyAsync(IEnumerable<FuelInvoice> invoices);
+    public Task SaveManyAsync(IEnumerable<FuelInvoice> invoices);
 
     /// <summary>
     /// Opens the database connection.
     /// </summary>
-    void Open();
+    public void Open();
 
     /// <summary>
     /// Opens the database connection.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    Task OpenAsync();
+    public Task OpenAsync();
 
     /// <summary>
     /// Closes the database connection.
     /// </summary>
-    void Close();
+    public void Close();
 
     /// <summary>
     /// Closes the database connection.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    Task CloseAsync();
+    public Task CloseAsync();
 }
