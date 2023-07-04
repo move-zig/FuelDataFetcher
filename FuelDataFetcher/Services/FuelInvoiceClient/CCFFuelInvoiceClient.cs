@@ -130,10 +130,10 @@ public class CCFFuelInvoiceClient : IFuelInvoiceClient
     }
 
     /// <summary>
-    /// Converts a CCFFuelInvoice into a FuelData record.
+    /// Converts a CCFFuelInvoice into a FuelInvoice record.
     /// </summary>
     /// <param name="ccfFuelInvoice">The raw invoice from CCF.</param>
-    /// <returns>A FuelData record.</returns>
+    /// <returns>A FuelInvoice record.</returns>
     private FuelInvoice ConvertData(CCFFuelInvoice ccfFuelInvoice)
     {
         return new FuelInvoice()
