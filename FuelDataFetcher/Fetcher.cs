@@ -56,6 +56,12 @@ public class Fetcher
 
         var fuelData = await this.fuelDataService.FetchByDateAsync(this.date);
 
+        if (fuelData.Count == 0)
+        {
+            this.logger.LogInformation("No records found");
+            return;
+        }
+
         await this.repository.OpenAsync();
 
         try
