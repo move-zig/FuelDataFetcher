@@ -26,5 +26,5 @@ public class MSSQLFuelInvoiceRepositoryOptions
 {
     public const string ConfigurationSectionName = "MSSQLFuelInvoiceRepository";
 
-    required public string ConnectionString;
+    required public string ConnectionString { get; set; }
 }

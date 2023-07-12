@@ -22,62 +22,83 @@
 
 namespace FuelDataFetcher.Services.FuelInvoiceClient;
 
-internal record CCFFuelInvoice
+using System.Text.Json.Serialization;
+
+public record CCFFuelInvoice
 {
     /// <summary>Gets or sets the ticket number on the invoice</summary>
-    required internal string ticket { get; set; }
+    [JsonPropertyName("ticket")]
+    required public string Ticket { get; set; }
 
     /// <summary>Gets or sets the invoice number.</summary>
-    required internal string invoice { get; set; }
+    [JsonPropertyName("invoice")]
+    required public string Invoice { get; set; }
 
-    /// <summary>Gets or sets the internal code of the location being delivered to.</summary>
-    required internal string ship_to { get; set; }
+    /// <summary>Gets or sets the public code of the location being delivered to.</summary>
+    [JsonPropertyName("ship_to")]
+    required public string ShipTo { get; set; }
 
     /// <summary>Gets or sets the name of the location being delivered to.</summary>
-    required internal string ship_to_desc { get; set; }
+    [JsonPropertyName("ship_to_desc")]
+    required public string ShipToDescription { get; set; }
 
     /// <summary>Gets or sets the street address of the location being delivered to.</summary>
-    required internal string ship_to_addr { get; set; }
+    [JsonPropertyName("ship_to_addr")]
+    required public string ShipToAddress { get; set; }
 
     /// <summary>Gets or sets the date of the delivery.</summary>
-    required internal DateOnly date { get; set; }
+    [JsonPropertyName("date")]
+    required public DateOnly Date { get; set; }
 
-    /// <summary>Gets or sets the time of delivery represented as an int in 24-hour format.</summary>
-    required internal int time { get; set; }
+    /// <summary>Gets or sets the time of delivery represented in HH:mm:ss format.</summary>
+    [JsonPropertyName("time")]
+    required public TimeOnly Time { get; set; }
 
     /// <summary>Gets or sets the PO box number.</summary>
-    required internal string po_num { get; set; }
+    [JsonPropertyName("po_num")]
+    required public string POBoxNumber { get; set; }
 
     /// <summary>Gets or sets the short code for the fuel type or charge.</summary>
-    required internal string product_num { get; set; }
+    [JsonPropertyName("product_num")]
+    required public string ProductNumber { get; set; }
 
     /// <summary>Gets or sets the long description of the fuel type or charge.</summary>
-    required internal string product_desc { get; set; }
+    [JsonPropertyName("product_desc")]
+    required public string ProductDescription { get; set; }
 
-    /// <summary>Gets or sets the internal ID for equipment fuel is being delivered to.</summary>
-    required internal string unit_num { get; set; }
+    /// <summary>Gets or sets the public ID for equipment fuel is being delivered to.</summary>
+    [JsonPropertyName("unit_num")]
+    required public string UnitNumber { get; set; }
 
     /// <summary>Gets or sets the barcode for equipment fuel is being delivered to.</summary>
-    required internal string unit_barcode { get; set; }
+    [JsonPropertyName("unit_barcode")]
+    required public string UnitBarcode { get; set; }
 
     /// <summary>Gets or sets the total amount of product.</summary>
-    required internal float quantity { get; set; }
+    [JsonPropertyName("quantity")]
+    required public float Quantity { get; set; }
 
     /// <summary>Gets or sets the unit price without tax.</summary>
-    required internal float unit_price_less_taxes { get; set; }
+    [JsonPropertyName("unit_price_less_taxes")]
+    required public float UnitPriceLessTaxes { get; set; }
 
     /// <summary>Gets or sets the federal tax.</summary>
-    required internal float fet { get; set; }
+    [JsonPropertyName("fet")]
+    required public float FederalTax { get; set; }
 
     /// <summary>Gets or sets the provincial tax.</summary>
-    required internal float pft { get; set; }
+    [JsonPropertyName("pft")]
+    required public float ProvincialTax { get; set; }
 
     /// <summary>Gets or sets the carbon tax.</summary>
-    required internal float ctx { get; set; }
+    [JsonPropertyName("ctx")]
+    required public float CarbonTax { get; set; }
 
     /// <summary>Gets or sets the sales tax.</summary>
-    required internal float hst { get; set; }
+    [JsonPropertyName("hst")]
+    required public float HarmonizedSalesTax { get; set; }
 
     /// <summary>Gets or sets the unit price with tax.</summary>
-    required internal float total_price { get; set; }
+    [JsonPropertyName("total_price")]
+    required public float TotalPrice { get; set; }
 }

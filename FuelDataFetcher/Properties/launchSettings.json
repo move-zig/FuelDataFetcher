@@ -2,7 +2,7 @@
   "profiles": {
     "FuelDataFetcher": {
       "commandName": "Project",
-      "commandLineArgs": "--Fetcher:Date=2023-05-20",
+      "commandLineArgs": "--Fetcher:Date=2023-07-03",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"
       }

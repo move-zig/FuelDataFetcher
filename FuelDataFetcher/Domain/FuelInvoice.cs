@@ -27,7 +27,11 @@ namespace FuelDataFetcher.Domain;
 /// </summary>
 public class FuelInvoice
 {
-    required public string Id { get; set; }
+    required public string Invoice { get; set; }
+
+    required public DateOnly Date { get; set; }
+
+    required public TimeOnly Time { get; set; }
 
     // TODO: complete this class, adding a property for each database field
 }

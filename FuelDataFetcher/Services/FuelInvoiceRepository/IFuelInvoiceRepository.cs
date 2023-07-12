@@ -30,6 +30,13 @@ using Domain;
 public interface IFuelInvoiceRepository : IDisposable
 {
     /// <summary>
+    /// Determines if records already exist for a particular date.
+    /// </summary>
+    /// <param name="date">The date.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    public Task<bool> RecordsExist(DateOnly date);
+
+    /// <summary>
     /// Saves fuel data to the database.
     /// </summary>
     /// <param name="invoices">The invoices to save.</param>

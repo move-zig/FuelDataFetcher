@@ -25,7 +25,7 @@ namespace FuelDataFetcher.Services.FuelInvoiceClient;
 using Domain;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net;
+using System.Net.Http.Json;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -35,9 +35,9 @@ public class CCFFuelInvoiceClient : IFuelInvoiceClient
     /// <summary>
     /// Sent as part of the user-agent HTTP header.
     /// </summary>
-    private readonly Version version = new (1, 0, 0);
+    private readonly Version version = new(1, 0, 0);
 
-    private readonly HttpClient client = new ();
+    private readonly HttpClient client = new();
 
     private readonly string baseUrl = "https://api.ccfanalytics.com/erb_invoices";
 
@@ -70,6 +70,7 @@ public class CCFFuelInvoiceClient : IFuelInvoiceClient
     public void Dispose()
     {
         this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -96,16 +97,22 @@ public class CCFFuelInvoiceClient : IFuelInvoiceClient
 
         try
         {
-            await using var stream = await this.client.GetStreamAsync(endpoint);
-            var body = await JsonSerializer.DeserializeAsync<List<CCFFuelInvoice>>(stream);
+            var response = await this.client.GetAsync(endpoint);
 
-            if (body == null)
+            if (!response.IsSuccessStatusCode)
             {
-                this.logger.LogError("JsonSerializer.DeserializeAsync returned null");
-                throw new FuelInvoiceClientException("No data found");
+                this.logger.LogError("Unable to fetch: {reason}", response.ReasonPhrase);
+                throw new FuelInvoiceClientException("Unable to fetch data");
             }
 
-            return body;
+            var invoices = await response.Content.ReadFromJsonAsync<List<CCFFuelInvoice>>();
+
+            if (invoices == null)
+            {
+                throw new FuelInvoiceClientException("Unable to parse JSON data");
+            }
+
+            return invoices;
         }
         catch (HttpRequestException e)
         {
@@ -139,7 +146,9 @@ public class CCFFuelInvoiceClient : IFuelInvoiceClient
         return new FuelInvoice()
         {
             // TODO: supply all properties with values
-            Id = ccfFuelInvoice.invoice,
+            Invoice = ccfFuelInvoice.Invoice,
+            Date = ccfFuelInvoice.Date,
+            Time = ccfFuelInvoice.Time,
         };
     }
 }

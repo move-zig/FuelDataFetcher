@@ -31,9 +31,9 @@ using Microsoft.Extensions.Options;
 /// <inheritdoc/>
 public class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
 {
-    private readonly SqlConnection connection;
+    private const string TableName = "invoices";
 
-    private readonly string tableName = "fuel_invoices";
+    private readonly SqlConnection connection;
 
     private readonly ILogger<MSSQLFuelInvoiceRepository> logger;
 
@@ -76,24 +76,19 @@ public class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
     }
 
     /// <inheritdoc />
-    public async Task SaveManyAsync(IEnumerable<FuelInvoice> invoices)
+    public async Task<bool> RecordsExist(DateOnly date)
     {
-        var sql = $"INSERT INTO {this.tableName} SET invoice = :invoice";
+        var sql = $"SELECT COUNT(*) FROM {TableName} WHERE date = @date";
 
         try
         {
             using var command = new SqlCommand(sql, this.connection);
+            command.Parameters.Add(new SqlParameter("date", SqlDbType.Date)).Value = date;
 
-            // TODO: add all required parameters
-            command.Parameters.Add(new SqlParameter("invoice", SqlDbType.VarChar));
+            using var reader = await command.ExecuteReaderAsync();
+            await reader.ReadAsync();
 
-            foreach (var invoice in invoices)
-            {
-                // TODO: set each parameter's value
-                command.Parameters["invoice"].Value = invoice.Id;
-
-                await command.ExecuteNonQueryAsync();
-            }
+            return reader.GetInt32(0) > 0;
         }
         catch (SqlException e)
         {
@@ -103,9 +98,45 @@ public class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
     }
 
     /// <inheritdoc />
+    public async Task SaveManyAsync(IEnumerable<FuelInvoice> invoices)
+    {
+        var sql = $"INSERT INTO {TableName} (Invoice, Date, Time) Values (@invoice, @date, @time)";
+
+        try
+        {
+            using var transaction = this.connection.BeginTransaction();
+
+            using var command = new SqlCommand(sql, this.connection, transaction);
+
+            // TODO: add all required parameters
+            command.Parameters.Add(new SqlParameter("invoice", SqlDbType.VarChar));
+            command.Parameters.Add(new SqlParameter("date", SqlDbType.Date));
+            command.Parameters.Add(new SqlParameter("time", SqlDbType.Time));
+
+            foreach (var invoice in invoices)
+            {
+                // TODO: set each parameter's value
+                command.Parameters["invoice"].Value = invoice.Invoice;
+                command.Parameters["date"].Value = invoice.Date;
+                command.Parameters["time"].Value = invoice.Time;
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            await transaction.CommitAsync();
+        }
+        catch (Exception e)
+        {
+            this.logger.LogError("{type} Database exception {message}", e.GetType(), e.Message);
+            throw;
+        }
+    }
+
+    /// <inheritdoc />
     public void Dispose()
     {
         this.Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>

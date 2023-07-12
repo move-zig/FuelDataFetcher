@@ -4,5 +4,5 @@ public sealed class FetcherOptions
 {
     public const string ConfigurationSectionName = "Fetcher";
 
-    public string? Date = null;
+    public string? Date { get; set; } = null;
 }

@@ -37,7 +37,9 @@ internal class Program
 
         var host = builder.Build();
 
-        var fetcher = host.Services.GetRequiredService<Fetcher>();
+        using var scope = host.Services.CreateScope();
+
+        var fetcher = scope.ServiceProvider.GetRequiredService<Fetcher>();
         await fetcher.FetchAndStoreAsync();
     }
 

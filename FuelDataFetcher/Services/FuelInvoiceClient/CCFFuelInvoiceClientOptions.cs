@@ -20,6 +20,8 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.ComponentModel.DataAnnotations;
+
 namespace FuelDataFetcher.Services.FuelInvoiceClient;
 
 public class CCFFuelInvoiceClientOptions
@@ -32,5 +34,6 @@ public class CCFFuelInvoiceClientOptions
     /// <summary>
     /// Gets or sets the access token to use in an HTTP Authorization bearer header.
     /// </summary>
+    [Required]
     required public string AccessToken { get; set; }
 }

@@ -60,6 +60,12 @@ public class Fetcher
 
         try
         {
+            if (await this.repository.RecordsExist(this.date))
+            {
+                this.logger.LogWarning("Records already exist for {date}", this.date);
+                return;
+            }
+
             await this.repository.SaveManyAsync(fuelData);
         }
         finally
