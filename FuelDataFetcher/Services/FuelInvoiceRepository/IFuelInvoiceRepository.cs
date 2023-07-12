@@ -34,7 +34,7 @@ public interface IFuelInvoiceRepository : IDisposable
     /// </summary>
     /// <param name="date">The date.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    public Task<bool> RecordsExist(DateOnly date);
+    public Task<bool> RecordsExistAsync(DateOnly date);
 
     /// <summary>
     /// Saves fuel data to the database.

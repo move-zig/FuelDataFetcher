@@ -66,7 +66,7 @@ public class Fetcher
 
         try
         {
-            if (await this.repository.RecordsExist(this.date))
+            if (await this.repository.RecordsExistAsync(this.date))
             {
                 this.logger.LogWarning("Records already exist for {date}", this.date);
                 return;

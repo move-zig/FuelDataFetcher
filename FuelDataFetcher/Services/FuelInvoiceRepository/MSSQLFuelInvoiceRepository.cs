@@ -76,7 +76,7 @@ public class MSSQLFuelInvoiceRepository : IFuelInvoiceRepository
     }
 
     /// <inheritdoc />
-    public async Task<bool> RecordsExist(DateOnly date)
+    public async Task<bool> RecordsExistAsync(DateOnly date)
     {
         var sql = $"SELECT COUNT(*) FROM {TableName} WHERE date = @date";
 
